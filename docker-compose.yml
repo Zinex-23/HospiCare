@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: tb-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: thingsboard
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - tb-postgres-data:/var/lib/postgresql/data
+    networks:
+      - tb-net
+
+  thingsboard-ce:
+    image: thingsboard/tb-node:4.3.0
+    container_name: tb-node
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+      - "7080:7070"
+      - "1883:1883"
+      - "8883:8883"
+      - "5683-5688:5683-5688/udp"
+    environment:
+      TB_SERVICE_ID: tb-ce-node
+      SPRING_DATASOURCE_URL: jdbc:postgresql://tb-postgres:5432/thingsboard
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EDGES_ENABLED: "false"
+    networks:
+      - tb-net
+
+networks:
+  tb-net:
+    name: tb-net
+    driver: bridge
+
+volumes:
+  tb-postgres-data:

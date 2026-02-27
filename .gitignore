@@ -1,0 +1,7 @@
+thingsboard/
+RTSP_campy/
+**/node_modules/
+**/target/
+**/build/
+**/dist/
+*.log
