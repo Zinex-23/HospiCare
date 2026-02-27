@@ -1,7 +1,3 @@
-thingsboard/
-RTSP_campy/
-**/node_modules/
-**/target/
-**/build/
-**/dist/
-*.log
+RTSP_campy/venv/
+**/__pycache__/
+*.pyc

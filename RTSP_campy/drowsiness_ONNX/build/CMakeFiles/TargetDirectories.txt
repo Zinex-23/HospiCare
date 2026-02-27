@@ -1,0 +1,3 @@
+/home/zinex/RTSP_campy/drowsiness_ONNX/build/CMakeFiles/drowsiness_cam.dir
+/home/zinex/RTSP_campy/drowsiness_ONNX/build/CMakeFiles/edit_cache.dir
+/home/zinex/RTSP_campy/drowsiness_ONNX/build/CMakeFiles/rebuild_cache.dir
