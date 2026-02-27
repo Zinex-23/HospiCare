@@ -1,0 +1,2 @@
+./run-backend.sh
+yarn start

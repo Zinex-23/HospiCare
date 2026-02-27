@@ -1,0 +1,56 @@
+How to run ThingsBoard UI (localhost:4200) with local backend
+
+Prerequisites
+- Java 17
+- Maven
+- Node.js + yarn
+- PostgreSQL running
+
+1) Build backend from source
+cd ~/Thingsboard_mine/thingsboard
+mvn clean install -DskipTests
+
+2) Initialize database with demo data (one time)
+cd ~/Thingsboard_mine/thingsboard/application/target/bin/install
+sudo bash install_dev_db.sh
+
+3) Start backend (recommended script)
+~/Thingsboard_mine/thingsboard/run-backend.sh
+
+Wait until you see:
+Started ThingsboardServerApplication
+
+4) Start UI (localhost:4200)
+cd ~/Thingsboard_mine/thingsboard/ui-ngx
+yarn start
+
+Alternative: run backend manually (Terminal 1)
+cd ~/Thingsboard_mine/thingsboard
+export LOADER_PATH=application/target/conf,application/target/extensions
+export EDGES_RPC_PORT=7071
+export MQTT_ENABLED=false
+export COAP_ENABLED=false
+export LWM2M_ENABLED=false
+export SNMP_ENABLED=false
+java -Dspring.config.additional-location=application/target/conf/ \
+     -jar application/target/thingsboard-*-boot.jar
+
+Then run UI in another terminal (Terminal 2)
+cd ~/Thingsboard_mine/thingsboard/ui-ngx
+yarn start
+
+5) Login
+- URL: http://localhost:4200
+- Username: sysadmin@thingsboard.org
+- Password: sysadmin
+
+Checks & troubleshooting
+- Check backend is listening:
+  ss -lntp | grep ':8080'
+
+- If backend fails to start:
+  tail -n 80 ~/Thingsboard_mine/thingsboard/application/target/logs/thingsboard.log
+
+- Common port conflicts:
+  7070 (Edge RPC), 1883 (MQTT), 5683-5688 (CoAP/LwM2M)
+  The run-backend.sh script disables MQTT/CoAP/LwM2M/SNMP and uses EDGES_RPC_PORT=7071.
