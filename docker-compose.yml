@@ -13,7 +13,8 @@ services:
       - tb-net
 
   thingsboard-ce:
-    image: thingsboard/tb-node:4.3.0
+    # image: thingsboard/tb-node:4.3.0
+    image: thingsboard/tb-node:latest
     container_name: tb-node
     restart: unless-stopped
     depends_on:

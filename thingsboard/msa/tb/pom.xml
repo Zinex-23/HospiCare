@@ -38,6 +38,8 @@
         <tb-postgres.docker.name>tb-postgres</tb-postgres.docker.name>
         <tb-cassandra.docker.name>tb-cassandra</tb-cassandra.docker.name>
         <pkg.installFolder>/usr/share/${pkg.name}</pkg.installFolder>
+        <dockerfile.tb.postgres.skip>${dockerfile.skip}</dockerfile.tb.postgres.skip>
+        <dockerfile.tb.cassandra.skip>${dockerfile.skip}</dockerfile.tb.cassandra.skip>
     </properties>
 
     <dependencies>
@@ -154,7 +156,7 @@
                             <goal>build</goal>
                         </goals>
                         <configuration>
-                            <skip>${dockerfile.skip}</skip>
+                            <skip>${dockerfile.tb.postgres.skip}</skip>
                             <repository>${docker.repo}/${tb-postgres.docker.name}</repository>
                             <verbose>true</verbose>
                             <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
@@ -169,7 +171,7 @@
                             <goal>tag</goal>
                         </goals>
                         <configuration>
-                            <skip>${dockerfile.skip}</skip>
+                            <skip>${dockerfile.tb.postgres.skip}</skip>
                             <repository>${docker.repo}/${tb-postgres.docker.name}</repository>
                             <tag>${project.version}</tag>
                         </configuration>
@@ -181,7 +183,7 @@
                             <goal>build</goal>
                         </goals>
                         <configuration>
-                            <skip>${dockerfile.skip}</skip>
+                            <skip>${dockerfile.tb.cassandra.skip}</skip>
                             <repository>${docker.repo}/${tb-cassandra.docker.name}</repository>
                             <verbose>true</verbose>
                             <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
@@ -196,7 +198,7 @@
                             <goal>tag</goal>
                         </goals>
                         <configuration>
-                            <skip>${dockerfile.skip}</skip>
+                            <skip>${dockerfile.tb.cassandra.skip}</skip>
                             <repository>${docker.repo}/${tb-cassandra.docker.name}</repository>
                             <tag>${project.version}</tag>
                         </configuration>
